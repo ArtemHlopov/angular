@@ -1,6 +1,20 @@
 <div class="keyboard-wrapper">
-  <button *ngFor="let num of numbers" (click)="setVal(num)">{{ num }}</button>
-  <button *ngFor="let op of operations" (click)="makeOperation(op)">
-    {{ op }}
-  </button>
+  <div class="numbers">
+    <button
+      *ngFor="let num of numbers"
+      (click)="setVal(num)"
+      [ngClass]="{ darkbtn: theme }"
+    >
+      {{ num }}
+    </button>
+  </div>
+  <div class="operations">
+    <button
+      *ngFor="let op of operations"
+      (click)="makeOperation(op)"
+      [ngClass]="{ darkbtn: theme }"
+    >
+      {{ op }}
+    </button>
+  </div>
 </div>

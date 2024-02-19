@@ -1,11 +1,11 @@
-import { NgFor } from '@angular/common';
-import { Component, Output, EventEmitter } from '@angular/core';
+import { NgClass, NgFor } from '@angular/common';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { numAfterDot, Numbers, Operation, ZeroValue } from '../types';
 
 @Component({
   selector: 'app-keyboard',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, NgClass],
   templateUrl: './keyboard.component.html',
   styleUrl: './keyboard.component.scss',
 })
@@ -20,6 +20,7 @@ export class KeyboardComponent {
     this.operations = Object.values(Operation);
     console.log(this.numbers, this.operations);
   }
+  @Input() theme: boolean = false;
   startVal = '';
   firstNum = '';
   oper = '';

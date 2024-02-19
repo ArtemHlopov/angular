@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { KeyboardComponent } from '../keyboard/keyboard.component';
 
 @Component({
   selector: 'app-display',
   standalone: true,
-  imports: [KeyboardComponent],
+  imports: [KeyboardComponent, NgClass],
   templateUrl: './display.component.html',
   styleUrl: './display.component.scss',
 })
@@ -13,6 +14,7 @@ export class DisplayComponent {
   constructor() {
     this.number = '';
   }
+  @Input() theme: boolean = false;
   changeNumber(num: string): void {
     this.number = num;
     console.log(`ne ekrane ${this.number}`);
