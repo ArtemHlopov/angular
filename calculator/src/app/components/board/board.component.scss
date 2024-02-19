@@ -1,0 +1,17 @@
+$black: #000000;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .calc-board {
+    width: 30vw;
+    height: 50vh;
+    border: 1px solid $black;
+    .board-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+}
