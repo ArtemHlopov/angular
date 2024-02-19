@@ -11,8 +11,13 @@ import { DisplayComponent } from '../display/display.component';
 })
 export class BoardComponent {
   theme = false;
-  switchTheme() {
-    this.theme ? (this.theme = false) : (this.theme = true);
-    console.log(this.theme);
+
+  switchTheme(): void {
+    if (this.theme) {
+      this.theme = false;
+    } else {
+      this.theme = true;
+    }
+    // this.theme ? (this.theme = false) : (this.theme = true);
   }
 }

@@ -11,12 +11,14 @@ import { KeyboardComponent } from '../keyboard/keyboard.component';
 })
 export class DisplayComponent {
   public number: string;
+
   constructor() {
     this.number = '';
   }
+
   @Input() theme: boolean = false;
+
   changeNumber(num: string): void {
     this.number = num;
-    console.log(`ne ekrane ${this.number}`);
   }
 }

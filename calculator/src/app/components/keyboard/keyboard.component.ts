@@ -11,35 +11,36 @@ import { numAfterDot, Numbers, Operation, ZeroValue } from '../types';
 })
 export class KeyboardComponent {
   public numbers: string[];
+
   public operations: string[];
+
   constructor() {
     this.numbers = Object.keys(Numbers).slice(
       0,
       -(Object.keys(Numbers).length / 2)
     );
     this.operations = Object.values(Operation);
-    console.log(this.numbers, this.operations);
   }
+
   @Input() theme: boolean = false;
+
   startVal = '';
+
   firstNum = '';
+
   oper = '';
+
   secNum = '';
 
   @Output() showNum = new EventEmitter<string>();
+
   makeOperation(op: string) {
     if (op !== Operation.equal && op !== Operation.reset) {
-      this.oper = op;
       if (this.firstNum !== this.startVal) {
-        console.log(
-          `oper - ${op}`,
-          `eto pervi ${this.firstNum}`,
-          `eto vtoroi ${this.secNum}`
-        );
+        this.oper = op;
       }
     }
     if (op === Operation.equal) {
-      console.log('tyt', this.firstNum, this.oper, this.secNum);
       if (
         this.oper === Operation.divide &&
         ZeroValue.val.includes(this.secNum)
@@ -47,13 +48,9 @@ export class KeyboardComponent {
         this.makeOperation(Operation.reset);
         this.showNum.emit(ZeroValue.msg);
       } else {
-        this.firstNum !== this.startVal && this.secNum !== this.startVal
-          ? (this.firstNum = this.calculate(
-              this.firstNum,
-              this.oper,
-              this.secNum
-            ))
-          : this.startVal;
+        if (this.firstNum !== this.startVal && this.secNum !== this.startVal) {
+          this.firstNum = this.calculate(this.firstNum, this.oper, this.secNum);
+        }
         this.oper = this.startVal;
         this.secNum = this.startVal;
         this.showNum.emit(this.firstNum);
@@ -64,11 +61,11 @@ export class KeyboardComponent {
       this.oper = this.startVal;
       this.secNum = this.startVal;
       this.showNum.emit(this.startVal);
-      console.log('restart');
     }
   }
+
   setVal(num: string) {
-    let curVal = num;
+    const curVal = num;
     if (!this.oper) {
       if (
         this.firstNum === String(Numbers.zero) &&
@@ -76,28 +73,29 @@ export class KeyboardComponent {
       ) {
         this.showNum.emit(curVal);
       } else {
-        this.firstNum === String(Numbers.zero)
-          ? (this.firstNum = curVal)
-          : (this.firstNum = this.firstNum + curVal);
+        if (this.firstNum === String(Numbers.zero)) {
+          this.firstNum = curVal;
+        } else {
+          this.firstNum += curVal;
+        }
         this.showNum.emit(this.firstNum);
       }
+    } else if (
+      this.secNum === String(Numbers.zero) &&
+      curVal === String(Numbers.zero)
+    ) {
+      this.showNum.emit(curVal);
     } else {
-      if (
-        this.secNum === String(Numbers.zero) &&
-        curVal === String(Numbers.zero)
-      ) {
-        this.showNum.emit(curVal);
+      if (this.secNum === String(Numbers.zero)) {
+        this.secNum = curVal;
       } else {
-        this.secNum === String(Numbers.zero)
-          ? (this.secNum = curVal)
-          : (this.secNum = this.secNum + curVal);
-        this.showNum.emit(this.secNum);
+        this.secNum += curVal;
       }
+      this.showNum.emit(this.secNum);
     }
   }
 
-  calculate(f: string, o: string, s: string): string {
-    console.log('v kalke', typeof o, o, typeof Operation.plus, Operation.plus);
+  calculate = (f: string, o: string, s: string): string => {
     let result = 0;
     switch (o) {
       case Operation.plus:
@@ -112,8 +110,10 @@ export class KeyboardComponent {
       case Operation.divide:
         result = Number(f) / Number(s);
         break;
+      default:
+        break;
     }
 
     return String(result.toFixed(numAfterDot));
-  }
+  };
 }
