@@ -1,11 +1,11 @@
-import { NgClass } from '@angular/common';
+// import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { KeyboardComponent } from '../keyboard/keyboard.component';
+// import { KeyboardComponent } from '../keyboard/keyboard.component';
 
 @Component({
   selector: 'app-display',
-  standalone: true,
-  imports: [KeyboardComponent, NgClass],
+  // standalone: true,
+  // imports: [KeyboardComponent, NgClass],
   templateUrl: './display.component.html',
   styleUrl: './display.component.scss',
 })

@@ -1,7 +1,7 @@
 <div class="keyboard-wrapper">
   <div class="numbers">
     <button
-      *ngFor="let num of numbers"
+      *ngFor="let num of numbers | fromEnumToArray"
       (click)="setVal(num)"
       [ngClass]="{ darkbtn: theme }"
     >

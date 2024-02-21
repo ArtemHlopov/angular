@@ -1,11 +1,19 @@
-import { NgClass, NgFor } from '@angular/common';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { numAfterDot, Numbers, Operation, ZeroValue } from '../types';
+// import { NgClass, NgFor } from '@angular/common';
+import {
+  Component, Output, EventEmitter, Input,
+} from '@angular/core';
+import {
+  // FromEnumToArrayPipe,
+  numAfterDot,
+  Numbers,
+  Operation,
+  ZeroValue,
+} from '../types';
 
 @Component({
   selector: 'app-keyboard',
-  standalone: true,
-  imports: [NgFor, NgClass],
+  // standalone: true,
+  // imports: [NgFor, NgClass, FromEnumToArrayPipe],
   templateUrl: './keyboard.component.html',
   styleUrl: './keyboard.component.scss',
 })
@@ -15,10 +23,7 @@ export class KeyboardComponent {
   public operations: string[];
 
   constructor() {
-    this.numbers = Object.keys(Numbers).slice(
-      0,
-      -(Object.keys(Numbers).length / 2)
-    );
+    this.numbers = Object.keys(Numbers);
     this.operations = Object.values(Operation);
   }
 
@@ -34,7 +39,7 @@ export class KeyboardComponent {
 
   @Output() showNum = new EventEmitter<string>();
 
-  makeOperation(op: string) {
+  makeOperation(op: string): void {
     if (op !== Operation.equal && op !== Operation.reset) {
       if (this.firstNum !== this.startVal) {
         this.oper = op;
@@ -42,8 +47,8 @@ export class KeyboardComponent {
     }
     if (op === Operation.equal) {
       if (
-        this.oper === Operation.divide &&
-        ZeroValue.val.includes(this.secNum)
+        this.oper === Operation.divide
+        && ZeroValue.val.includes(this.secNum)
       ) {
         this.makeOperation(Operation.reset);
         this.showNum.emit(ZeroValue.msg);
@@ -64,12 +69,12 @@ export class KeyboardComponent {
     }
   }
 
-  setVal(num: string) {
+  setVal(num: string): void {
     const curVal = num;
     if (!this.oper) {
       if (
-        this.firstNum === String(Numbers.zero) &&
-        curVal === String(Numbers.zero)
+        this.firstNum === String(Numbers.zero)
+        && curVal === String(Numbers.zero)
       ) {
         this.showNum.emit(curVal);
       } else {
@@ -81,8 +86,8 @@ export class KeyboardComponent {
         this.showNum.emit(this.firstNum);
       }
     } else if (
-      this.secNum === String(Numbers.zero) &&
-      curVal === String(Numbers.zero)
+      this.secNum === String(Numbers.zero)
+      && curVal === String(Numbers.zero)
     ) {
       this.showNum.emit(curVal);
     } else {
