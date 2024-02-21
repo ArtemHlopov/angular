@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <div class="calc-board" [ngClass]="{ dark: theme }">
+    <div class="board-wrapper">
+      <label for="mode"
+        >Darkmode
+        <input type="checkbox" id="mode" name="mode" (click)="switchTheme()" />
+      </label>
+    </div>
+    <app-display [theme]="theme"></app-display>
+  </div>
+</div>
