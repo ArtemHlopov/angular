@@ -21,14 +21,14 @@ import {
   standalone: true,
   imports: [
     MenuComponent,
+    EditRemovebtn,
     NgIf,
     NgFor,
-    EditRemovebtn,
     FormsModule,
     NgClass,
     FontAwesomeModule,
   ],
-  providers: [DataService],
+  providers: [],
   templateUrl: './mainboard.component.html',
   styleUrl: './mainboard.component.scss',
 })
@@ -53,8 +53,8 @@ export class MainboardComponent implements OnInit {
   }
 
   deleteTask(id: number): void {
-    this.tasks = this.tasks.filter((el) => el.id !== id);
-    this.data.removeTask(this.tasks);
+    this.data.removeTask(id);
+    this.updateData();
   }
 
   changeStatus(task: Task): void {
@@ -72,7 +72,6 @@ export class MainboardComponent implements OnInit {
   }
 
   upadateTask(updTaskId: number, newText: string) {
-    console.log('tyt', updTaskId, newText);
     this.data.updateTask(updTaskId, newText);
   }
 }

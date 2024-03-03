@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
 import { MainboardComponent } from './components/mainboard/mainboard.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { EditRemovebtn } from './directives/editremovebtn.directive';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MenuComponent,
     MainboardComponent,
     FontAwesomeModule,
+    EditRemovebtn,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

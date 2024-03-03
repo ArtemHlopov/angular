@@ -8,24 +8,20 @@ import { DataService } from '../services/data-service.service';
   providers: [DataService],
 })
 export class EditRemovebtn {
-  constructor(
-    private elRef: ElementRef,
-    private renderer: Renderer2,
-    private dataService: DataService
-  ) {}
+  constructor(private elRef: ElementRef, private renderer: Renderer2) {}
 
   @HostListener('click', ['$event'])
   onClick(): void {
-    let input =
-      this.elRef.nativeElement.parentElement.previousElementSibling
-        .previousElementSibling;
+    let input = this.elRef.nativeElement.parentElement.previousElementSibling
+      .previousElementSibling as HTMLInputElement;
     if (this.elRef.nativeElement.classList.contains('editMode')) {
       this.elRef.nativeElement.textContent = 'save';
-      this.elRef.nativeElement.classList.toggle('editMode');
+      this.renderer.removeClass(this.elRef.nativeElement, 'editMode');
       input.removeAttribute('disabled');
+      console.log('тут', input);
     } else {
       this.elRef.nativeElement.textContent = 'edit';
-      this.elRef.nativeElement.classList.toggle('editMode');
+      this.renderer.addClass(this.elRef.nativeElement, 'editMode');
       input.setAttribute('disabled', 'disabled');
     }
   }

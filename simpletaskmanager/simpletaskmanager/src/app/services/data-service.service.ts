@@ -46,13 +46,14 @@ export class DataService {
     return taskToAdd;
   }
 
-  removeTask(data: Task[]): void {
-    localStorage.setItem(`${lskey}`, JSON.stringify(data));
+  removeTask(id: number): void {
+    this.data = this.data.filter((el) => el.id !== id);
+    localStorage.setItem(`${lskey}`, JSON.stringify(this.data));
   }
 
   updateTask(updateId: number, updateStr: string): void {
     let updTaskInd = this.data.indexOf(
-      this.data.find((el) => el.id === updateId) as Task,
+      this.data.find((el) => el.id === updateId) as Task
     );
     let updTask: Task = {
       id: this.data[updTaskInd].id,
@@ -65,7 +66,7 @@ export class DataService {
 
   updateDataStatus(task: Task): void {
     let updTaskInd = this.data.indexOf(
-      this.data.find((el) => el.id === task.id) as Task,
+      this.data.find((el) => el.id === task.id) as Task
     );
     this.data[updTaskInd] = task;
     localStorage.setItem(`${lskey}`, JSON.stringify(this.data));

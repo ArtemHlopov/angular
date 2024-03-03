@@ -6,7 +6,7 @@ import { DataService } from '../../services/data-service.service';
   selector: 'app-menu',
   standalone: true,
   imports: [FormsModule],
-  providers: [DataService],
+  providers: [],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
 })
