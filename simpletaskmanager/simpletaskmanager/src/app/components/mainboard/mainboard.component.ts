@@ -1,41 +1,31 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {
-  FontAwesomeModule,
-  FaIconLibrary,
-} from '@fortawesome/angular-fontawesome';
-import { EditRemovebtn } from '../../directives/editremovebtn.directive';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { DataService } from '../../services/data-service.service';
-import { Task } from '../../types';
-import { MenuComponent } from '../menu/menu.component';
+import { QueryStatus, Task, UrlIdAtr } from '../../types';
 import {
   faSquare,
   faCheckSquare,
   faXmark,
   faCheck,
 } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-mainboard',
-  standalone: true,
-  imports: [
-    MenuComponent,
-    EditRemovebtn,
-    NgIf,
-    NgFor,
-    FormsModule,
-    NgClass,
-    FontAwesomeModule,
-  ],
-  providers: [],
   templateUrl: './mainboard.component.html',
   styleUrl: './mainboard.component.scss',
 })
 export class MainboardComponent implements OnInit {
-  constructor(public data: DataService, library: FaIconLibrary) {
+  constructor(
+    public data: DataService,
+    library: FaIconLibrary,
+    private router: ActivatedRoute,
+    private rout: Router
+  ) {
     library.addIcons(faSquare, faCheckSquare, faXmark, faCheck);
   }
+
+  sorted: boolean = false;
 
   tasks: Task[] = [];
 
@@ -45,6 +35,18 @@ export class MainboardComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.router.params.subscribe((p) => {
+      if (Object.keys(p).length > 0) {
+        let current = p as UrlIdAtr;
+        this.data.searchById(current.id);
+        this.tasks = this.data.data;
+      }
+    });
+    this.router.queryParams.subscribe((p) => {
+      let query = p as QueryStatus;
+      this.data.sortByStatus(query);
+    });
+    const taskSub = this.data.dataSubj.subscribe((d) => (this.tasks = d));
     this.updateData();
   }
 
@@ -62,16 +64,23 @@ export class MainboardComponent implements OnInit {
     this.data.updateDataStatus(task);
   }
 
-  filterTask(e: string): void {
-    this.tasks = this.data.getData();
-    this.tasks = this.tasks.filter((el) => el.id === Number(e));
-  }
+  // filterTask(e: string): void {
+  //   this.data.searchById(e);
+  //   this.tasks = this.data.data;
+  // }
 
-  clearBoard(): void {
-    this.tasks = [];
-  }
+  // clearBoard(): void {
+  //   this.tasks = [];
+  // }
 
   upadateTask(updTaskId: number, newText: string) {
     this.data.updateTask(updTaskId, newText);
+  }
+
+  sortBystatus(): void {
+    this.sorted = !this.sorted;
+    this.rout.navigate([], {
+      queryParams: { status: this.sorted },
+    });
   }
 }

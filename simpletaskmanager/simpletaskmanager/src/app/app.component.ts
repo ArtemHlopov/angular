@@ -8,15 +8,6 @@ import { EditRemovebtn } from './directives/editremovebtn.directive';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    MenuComponent,
-    MainboardComponent,
-    FontAwesomeModule,
-    EditRemovebtn,
-  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

@@ -1,9 +1,11 @@
-<app-menu
+<!-- <app-menu
   (addTask)="updateData()"
   (searchTask)="filterTask($event)"
   (refreshData)="updateData()"
   (removeAllData)="clearBoard()"
-></app-menu>
+></app-menu> -->
+<app-menu></app-menu>
+<button (click)="sortBystatus()">Sort by status</button>
 <div class="boardmenu">
   <div class="borader-nav">
     <div class="title">TITLE</div>

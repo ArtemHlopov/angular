@@ -14,3 +14,14 @@ export const ModBtn = {
   add: 'addBtn',
   rem: 'remBtn',
 };
+
+export const userLogged = {
+  loggedin: true,
+  loggedout: false,
+};
+export type UrlIdAtr = {
+  id: string;
+};
+export type QueryStatus = {
+  status: string;
+};
