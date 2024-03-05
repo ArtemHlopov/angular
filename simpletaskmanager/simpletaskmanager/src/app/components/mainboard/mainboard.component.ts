@@ -73,9 +73,9 @@ export class MainboardComponent implements OnInit {
   //   this.tasks = [];
   // }
 
-  upadateTask(updTaskId: number, newText: string) {
-    this.data.updateTask(updTaskId, newText);
-  }
+  // upadateTask(updTaskId: number, newText: string) {
+  //   this.data.updateTask(updTaskId, newText);
+  // }
 
   sortBystatus(): void {
     this.sorted = !this.sorted;
