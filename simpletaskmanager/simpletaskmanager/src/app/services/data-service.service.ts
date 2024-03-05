@@ -84,6 +84,7 @@ export class DataService {
     } else {
       this.data = [];
     }
+    console.log(this.data);
     this.dataSubj.next(this.data);
   }
 

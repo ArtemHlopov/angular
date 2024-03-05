@@ -6,7 +6,13 @@ import { AuthService } from '../services/auth.service';
   standalone: true,
 })
 export class EnterbtnDirective {
-  constructor(private elRef: ElementRef, private authService: AuthService) {}
+  constructor(private elRef: ElementRef, private authService: AuthService) {
+    if (this.authService.auth) {
+      this.elRef.nativeElement.textContent = 'Logout';
+    } else {
+      this.elRef.nativeElement.textContent = 'Enter';
+    }
+  }
 
   @HostListener('click', ['$event'])
   onclick(): void {
@@ -15,6 +21,5 @@ export class EnterbtnDirective {
     } else {
       this.elRef.nativeElement.textContent = 'Logout';
     }
-    console.log(this.authService.auth);
   }
 }

@@ -5,7 +5,10 @@ import { userLogged } from '../types';
   providedIn: 'root',
 })
 export class AuthService {
-  public auth: boolean = false;
+  public auth: boolean;
+  constructor() {
+    this.auth = this.checkAuth();
+  }
 
   checkAuth(): boolean {
     let status: string | null = localStorage.getItem('userLog');

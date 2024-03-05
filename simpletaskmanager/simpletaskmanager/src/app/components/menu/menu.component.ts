@@ -29,7 +29,7 @@ export class MenuComponent {
 
   searchNewTask(): void {
     // this.searchTask.emit(this.searchIndex);
-    this.dataService.searchById(this.searchIndex);
+    // this.dataService.searchById(this.searchIndex);
     this.router.navigate(['app', 'tasks', this.searchIndex]);
   }
 

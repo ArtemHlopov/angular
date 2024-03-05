@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { DataService } from '../../services/data-service.service';
 import { QueryStatus, Task, UrlIdAtr } from '../../types';
@@ -35,6 +35,7 @@ export class MainboardComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.updateData();
     this.router.params.subscribe((p) => {
       if (Object.keys(p).length > 0) {
         let current = p as UrlIdAtr;
@@ -47,7 +48,6 @@ export class MainboardComponent implements OnInit {
       this.data.sortByStatus(query);
     });
     const taskSub = this.data.dataSubj.subscribe((d) => (this.tasks = d));
-    this.updateData();
   }
 
   updateData(): void {
