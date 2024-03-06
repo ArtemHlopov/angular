@@ -1,0 +1,37 @@
+<!-- <app-menu
+  (addTask)="updateData()"
+  (searchTask)="filterTask($event)"
+  (refreshData)="updateData()"
+  (removeAllData)="clearBoard()"
+></app-menu> -->
+<app-menu></app-menu>
+<button (click)="sortBystatus()">Sort by status</button>
+<div class="boardmenu">
+  <div class="borader-nav">
+    <div class="title">TITLE</div>
+    <div class="status">STATUS</div>
+    <div class="modifyers">MODIFIERS</div>
+  </div>
+</div>
+<div *ngIf="tasks.length > 0; else no_data">
+  <div *ngFor="let task of tasks" id="{{ task.id }}" class="task">
+    <input class="title" disabled [(ngModel)]="task.title" />
+    <div
+      class="status-task"
+      (click)="changeStatus(task)"
+      [ngClass]="{ completed: task.status }"
+    >
+      <div *ngIf="task.status; else no_status">
+        <fa-icon [icon]="['fas', 'check']"></fa-icon>
+      </div>
+    </div>
+    <div class="modifyers">
+      <button appEdRemBtn class="addBtn editMode">edit</button>
+      <button class="remBtn" (click)="deleteTask(task.id)">remove</button>
+    </div>
+  </div>
+</div>
+<ng-template #no_data>Nodata</ng-template>
+<ng-template #no_status>
+  <fa-icon [icon]="['fas', 'xmark']"></fa-icon
+></ng-template>
