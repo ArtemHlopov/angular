@@ -20,7 +20,7 @@ export class MenuComponent {
   searchTitle: string = '';
 
   addNewTask(): void {
-    this.dataService.addTask(this.newTaskName);
+    this.httpService.addTask(this.newTaskName);
   }
 
   searchNewTask(): void {

@@ -65,7 +65,7 @@ export class MainboardComponent implements OnInit {
 
   changeStatus(task: Task): void {
     task.completed = !task.completed;
-    this.data.updateDataStatus(task);
+    this.httpService.updateDataStatus(task);
   }
 
   sortBystatus(): void {

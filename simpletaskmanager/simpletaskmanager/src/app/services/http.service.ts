@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, map, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, last, map, Observable } from 'rxjs';
 import { QueryStatus, Task, User } from '../types';
 
 @Injectable({
@@ -22,7 +22,6 @@ export class HttpService {
   public usersSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(
     this.users
   );
-
   getTasks(): void {
     this.http.get<Task[]>(this.tasksUrl).subscribe((tasks) => {
       this.tasks = tasks;
@@ -34,6 +33,31 @@ export class HttpService {
       this.users = users;
       this.usersSubject.next(users);
     });
+  }
+  addTask(str: string): void {
+    this.http
+      .get<Task[]>(this.tasksUrl)
+      .pipe(
+        map((tasks) => {
+          let lastTask = tasks[tasks.length - 1];
+          lastTask.id = lastTask.id + 1;
+          lastTask.title = str;
+          return lastTask;
+        })
+      )
+      .subscribe((lastTask) =>
+        this.http.post(this.tasksUrl, lastTask).subscribe(console.log)
+      );
+  }
+  updateTask(updateId: number, updateStr: string): void {
+    this.http
+      .patch(`${this.tasksUrl}${updateId}`, { title: updateStr })
+      .subscribe(() => console.log('Task updated'));
+  }
+  updateDataStatus(task: Task) {
+    this.http
+      .patch(`${this.tasksUrl}${task.id}`, { completed: task.completed })
+      .subscribe(() => console.log('Task status updated'));
   }
   forkJoinTaskWithNames() {
     return forkJoin({
@@ -66,9 +90,10 @@ export class HttpService {
   }
 
   removeTask(id: number): void {
-    console.log(`${this.tasksUrl}${id}`);
-    this.http.delete(`${this.tasksUrl}${id}`).subscribe(console.log);
-    this.getTasksWithNames();
+    this.http
+      .delete(`${this.tasksUrl}${id}`)
+      .subscribe(() => console.log('Task deleted'));
+    this.tasksSubject.next(this.tasks.filter((t) => t.id !== id));
   }
 
   getTaskByID(id: string) {

@@ -1,5 +1,6 @@
 import { Directive, HostListener, ElementRef, Renderer2 } from '@angular/core';
 import { DataService } from '../services/data-service.service';
+import { HttpService } from '../services/http.service';
 
 @Directive({
   selector: '[appEdRemBtn]',
@@ -9,7 +10,7 @@ export class EditRemovebtn {
   constructor(
     private elRef: ElementRef,
     private renderer: Renderer2,
-    private service: DataService
+    private httpService: HttpService
   ) {}
 
   @HostListener('click', ['$event'])
@@ -28,11 +29,10 @@ export class EditRemovebtn {
       this.elRef.nativeElement.classList.remove('editMode');
       this.elRef.nativeElement.textContent = 'save';
       input.removeAttribute('disabled');
-      console.log('тут', input, this.elRef.nativeElement.textContent);
     } else {
       this.elRef.nativeElement.classList.add('editMode');
       this.elRef.nativeElement.textContent = 'edit';
-      this.service.updateTask(Number(id), input.value);
+      this.httpService.updateTask(Number(id), input.value);
       input.setAttribute('disabled', 'disabled');
     }
   }
