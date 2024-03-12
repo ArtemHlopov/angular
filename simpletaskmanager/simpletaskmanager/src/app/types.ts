@@ -1,7 +1,25 @@
 export type Task = {
+  userId?: number;
+  user?: User;
   id: number;
   title: string;
-  status?: boolean;
+  completed: boolean;
+};
+export type User = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+    geo: {
+      lat: string;
+      lng: string;
+    };
+  };
 };
 
 export const idModyf = {

@@ -37,13 +37,13 @@ export class DataService {
       taskToAdd = {
         id: lastTask.id + idModyf.next,
         title: str,
-        status: false,
+        completed: false,
       };
     } else {
       taskToAdd = {
         id: idModyf.next,
         title: str,
-        status: false,
+        completed: false,
       };
     }
     return taskToAdd;
@@ -91,7 +91,7 @@ export class DataService {
   sortByStatus(query: QueryStatus): void {
     if (query.status === 'true') {
       this.data = this.data.sort((a) => {
-        if (a.status) {
+        if (a.completed) {
           return -1;
         }
         return 1;
@@ -99,7 +99,7 @@ export class DataService {
     }
     if (query.status === 'false') {
       this.data = this.data.sort((a) => {
-        if (a.status) {
+        if (a.completed) {
           return 1;
         }
         return -1;

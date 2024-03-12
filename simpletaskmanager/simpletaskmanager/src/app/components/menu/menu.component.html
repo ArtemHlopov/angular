@@ -15,5 +15,14 @@
     <button (click)="searchNewTask()">Search</button>
     <input type="text" id="taskId" [(ngModel)]="searchIndex" />
   </label>
+  <label for="titleForSearch"
+    >searchByTitle
+    <input
+      type="text"
+      id="titleForSearch"
+      [(ngModel)]="searchTitle"
+      appSearchTitle
+    />
+  </label>
   <button (click)="removeData()">Remove All</button>
 </div>

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { EditRemovebtn } from '../../directives/editremovebtn.directive';
+import { SelectDirective } from '../../directives/select.directive';
 import { MenuModule } from '../menu/menu.module';
 import { MainboardComponent } from './mainboard.component';
 
@@ -16,6 +17,7 @@ import { MainboardComponent } from './mainboard.component';
     FormsModule,
     NgClass,
     FontAwesomeModule,
+    SelectDirective,
   ],
   exports: [MainboardComponent],
 })

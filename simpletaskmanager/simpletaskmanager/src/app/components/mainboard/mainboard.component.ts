@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { DataService } from '../../services/data-service.service';
-import { QueryStatus, Task, UrlIdAtr } from '../../types';
+import { QueryStatus, Task, UrlIdAtr, User } from '../../types';
 import {
   faSquare,
   faCheckSquare,
@@ -9,6 +9,8 @@ import {
   faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpService } from '../../services/http.service';
+import { forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-mainboard',
@@ -17,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class MainboardComponent implements OnInit {
   constructor(
+    public httpService: HttpService,
     public data: DataService,
     library: FaIconLibrary,
     private router: ActivatedRoute,
@@ -28,54 +31,42 @@ export class MainboardComponent implements OnInit {
   sorted: boolean = false;
 
   tasks: Task[] = [];
-
+  users: User[] = [];
   taskForChange: Task = {
     id: 0,
     title: '',
+    completed: false,
   };
 
   ngOnInit(): void {
-    this.updateData();
+    this.httpService.tasksSubject.subscribe((tasks) => {
+      this.tasks = tasks;
+      console.log(tasks);
+    });
+    this.httpService.usersSubject.subscribe((users) => {
+      this.users = users;
+      console.log(users);
+    });
     this.router.params.subscribe((p) => {
       if (Object.keys(p).length > 0) {
         let current = p as UrlIdAtr;
-        this.data.searchById(current.id);
-        this.tasks = this.data.data;
+        this.httpService.getTaskByID(current.id);
       }
     });
     this.router.queryParams.subscribe((p) => {
       let query = p as QueryStatus;
-      this.data.sortByStatus(query);
+      this.httpService.sortTasksByStatus(query);
     });
-    const taskSub = this.data.dataSubj.subscribe((d) => (this.tasks = d));
-  }
-
-  updateData(): void {
-    this.tasks = this.data.getData();
   }
 
   deleteTask(id: number): void {
-    this.data.removeTask(id);
-    this.updateData();
+    this.httpService.removeTask(id);
   }
 
   changeStatus(task: Task): void {
-    task.status = !task.status;
+    task.completed = !task.completed;
     this.data.updateDataStatus(task);
   }
-
-  // filterTask(e: string): void {
-  //   this.data.searchById(e);
-  //   this.tasks = this.data.data;
-  // }
-
-  // clearBoard(): void {
-  //   this.tasks = [];
-  // }
-
-  // upadateTask(updTaskId: number, newText: string) {
-  //   this.data.updateTask(updTaskId, newText);
-  // }
 
   sortBystatus(): void {
     this.sorted = !this.sorted;
