@@ -1,0 +1,28 @@
+<div class="nav-wrapper">
+  <label for="addTask">
+    Add new task
+    <input
+      type="text"
+      id="addTask"
+      name="newTaskName"
+      [(ngModel)]="newTaskName"
+    />
+    <button (click)="addNewTask()">Add</button></label
+  >
+  <button (click)="refreshTasks()">Back to all tasks</button>
+  <label for="taskId"
+    >searchByID
+    <button (click)="searchNewTask()">Search</button>
+    <input type="text" id="taskId" [(ngModel)]="searchIndex" />
+  </label>
+  <label for="titleForSearch"
+    >searchByTitle
+    <input
+      type="text"
+      id="titleForSearch"
+      [(ngModel)]="searchTitle"
+      appSearchTitle
+    />
+  </label>
+  <button (click)="removeData()">Remove All</button>
+</div>

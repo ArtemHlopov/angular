@@ -1,0 +1,36 @@
+@import "../../app.component.scss";
+.keyboard-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  button {
+    width: 3em;
+    height: 2.73em;
+    font-size: 1.5em;
+    &:first-child {
+      order: 1;
+    }
+  }
+}
+.operations {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  button {
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+    width: 3.1em;
+    height: 2.72em;
+  }
+}
+.darkbtn {
+  border: 0.01em solid $grey;
+  background-color: $dark-grey;
+  color: $grey;
+}

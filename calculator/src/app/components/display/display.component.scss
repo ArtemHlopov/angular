@@ -1,0 +1,16 @@
+@import "../../app.component.scss";
+.display {
+  margin: 0.29em 0 0.5em;
+  max-width: 30vw;
+  height: 10vh;
+  border: 1px solid $black;
+  font-size: 1.8em;
+  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border: 0.01em solid $black;
+  &.darkdisplay {
+    border: 0.01em solid $grey;
+  }
+}
