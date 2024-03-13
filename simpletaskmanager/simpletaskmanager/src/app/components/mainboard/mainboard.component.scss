@@ -23,6 +23,8 @@
 .boardmenu {
   margin-top: 1em;
 }
-.user {
-  display: flex;
+table,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
 }

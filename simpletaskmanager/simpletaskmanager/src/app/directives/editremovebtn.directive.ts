@@ -1,5 +1,4 @@
 import { Directive, HostListener, ElementRef, Renderer2 } from '@angular/core';
-import { DataService } from '../services/data-service.service';
 import { HttpService } from '../services/http.service';
 
 @Directive({
@@ -19,12 +18,6 @@ export class EditRemovebtn {
       .previousElementSibling as HTMLInputElement;
     let idBlock = input.parentElement as HTMLElement;
     let id = idBlock.id;
-    console.log(
-      this.elRef.nativeElement.classList.contains('editMode'),
-      input,
-      this.elRef.nativeElement,
-      id
-    );
     if (this.elRef.nativeElement.classList.contains('editMode')) {
       this.elRef.nativeElement.classList.remove('editMode');
       this.elRef.nativeElement.textContent = 'save';

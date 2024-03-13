@@ -1,6 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { DataService } from '../../services/data-service.service';
 import { QueryStatus, Task, UrlIdAtr, User } from '../../types';
 import {
   faSquare,
@@ -20,7 +19,6 @@ import { forkJoin, map } from 'rxjs';
 export class MainboardComponent implements OnInit {
   constructor(
     public httpService: HttpService,
-    public data: DataService,
     library: FaIconLibrary,
     private router: ActivatedRoute,
     private rout: Router
@@ -41,11 +39,9 @@ export class MainboardComponent implements OnInit {
   ngOnInit(): void {
     this.httpService.tasksSubject.subscribe((tasks) => {
       this.tasks = tasks;
-      console.log(tasks);
     });
     this.httpService.usersSubject.subscribe((users) => {
       this.users = users;
-      console.log(users);
     });
     this.router.params.subscribe((p) => {
       if (Object.keys(p).length > 0) {

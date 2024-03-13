@@ -12,9 +12,7 @@ export class StartpageComponent implements OnInit {
 
   constructor(private router: Router, private auth: AuthService) {}
 
-  ngOnInit(): void {
-    // this.auth.logout();
-  }
+  ngOnInit(): void {}
 
   enterApp(): void {
     if (!this.auth.auth) {

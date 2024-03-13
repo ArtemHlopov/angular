@@ -49,14 +49,28 @@
     </div>
   </div>
 </div>
-<h2 class="users-title">USERS</h2>
 <div *ngIf="users.length > 0; else no_data">
-  <div *ngFor="let user of users" id="user-{{ user.id }}" class="user">
-    <div>{{ user.id }}</div>
-    <div>{{ user.name }}</div>
-    <div>{{ user.username }}</div>
-    <div>{{ user.email }}</div>
-  </div>
+  <table>
+    <caption class="users-title">
+      USERS
+    </caption>
+    <thead>
+      <tr class="user">
+        <td>ID</td>
+        <td>Name</td>
+        <td>Username</td>
+        <td>Email</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" id="user-{{ user.id }}" class="user">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 <ng-template #no_data>Nodata</ng-template>
 <ng-template #no_status>

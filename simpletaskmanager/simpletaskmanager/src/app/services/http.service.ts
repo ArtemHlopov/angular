@@ -1,6 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, last, map, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  debounce,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  forkJoin,
+  last,
+  map,
+  Observable,
+} from 'rxjs';
 import { QueryStatus, Task, User } from '../types';
 
 @Injectable({
@@ -15,6 +25,7 @@ export class HttpService {
   private usersUrl = 'https://jsonplaceholder.typicode.com/users/';
   public tasks: Task[] = [];
   public users: User[] = [];
+  // public tasksForUpdate: Task[] = [];
   public serachUserId: string = '';
   public tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>(
     this.tasks
@@ -22,6 +33,9 @@ export class HttpService {
   public usersSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(
     this.users
   );
+  // public tasksForUpdateSubject: BehaviorSubject<Task[]> = new BehaviorSubject<
+  //   Task[]
+  // >(this.tasksForUpdate);
   getTasks(): void {
     this.http.get<Task[]>(this.tasksUrl).subscribe((tasks) => {
       this.tasks = tasks;
@@ -59,6 +73,20 @@ export class HttpService {
       .patch(`${this.tasksUrl}${task.id}`, { completed: task.completed })
       .subscribe(() => console.log('Task status updated'));
   }
+  // filterTaskByIdandIndex(array: Task[]) {
+  //   let result: Task[] = [];
+  //   array.map((el, index) => {
+  //     if (!result.some((ele) => ele.id === el.id)) {
+  //       result.push(el);
+  //     } else {
+  //       const exist = result.find((ele) => ele.id === el.id) as Task;
+  //       if (array.indexOf(exist) > index) {
+  //         result[result.indexOf(exist)] = el;
+  //       }
+  //     }
+  //   });
+  //   return result;
+  // }
   forkJoinTaskWithNames() {
     return forkJoin({
       tasks: this.http.get<Task[]>(this.tasksUrl),

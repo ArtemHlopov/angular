@@ -14,6 +14,7 @@ export class SearchTitleDirective implements OnInit {
       .pipe(debounceTime(1000))
       .subscribe(() => {
         const text = this.elRef.nativeElement.value;
+        console.log(text);
         this.httpService.getTasksByTitle(text);
       });
   }

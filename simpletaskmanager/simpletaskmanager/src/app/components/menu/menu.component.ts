@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../../services/data-service.service';
 import { HttpService } from '../../services/http.service';
 
 @Component({
@@ -9,11 +8,7 @@ import { HttpService } from '../../services/http.service';
   styleUrl: './menu.component.scss',
 })
 export class MenuComponent {
-  constructor(
-    private dataService: DataService,
-    private router: Router,
-    private httpService: HttpService
-  ) {}
+  constructor(private router: Router, private httpService: HttpService) {}
 
   newTaskName: string = '';
   searchIndex: string = '';
