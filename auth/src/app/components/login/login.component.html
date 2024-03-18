@@ -1,0 +1,8 @@
+<form [formGroup]="formGroup">
+  <label for="email">Check your email</label>
+  <input type="text" id="email" name="email" formControlName="email" appLogin />
+  <label for="ipv">Check your ipv4</label>
+  <input type="text" id="ipv" name="ipv" formControlName="ipv" appIpv />
+  <div *ngIf="!formGroup.valid && formGroup.touched">{{ emailError }}</div>
+  <button *ngIf="formGroup.valid" (click)="congrats()">Check</button>
+</form>
